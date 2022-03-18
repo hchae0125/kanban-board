@@ -1,5 +1,4 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import ToDoList from './components/ToDoList';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
@@ -61,7 +60,6 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return <>
     <GlobalStyle />
-    <ToDoList />
   </> ;
 }
 

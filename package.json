@@ -1,5 +1,5 @@
 {
-  "name": "crypto-tracker",
+  "name": "kanban-board",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +14,7 @@
     "apexcharts": "^3.33.2",
     "react": "^17.0.2",
     "react-apexcharts": "^1.3.9",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.27.1",
     "react-query": "^3.34.16",
