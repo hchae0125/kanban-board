@@ -1,4 +1,32 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
+import { useRecoilState } from 'recoil';
+import { toDoState } from './atoms';
+import DraggableCard from './components/DraggableCard';
+
+const Boards = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(1, 1fr);
+`;
+
+const Board = styled.div`
+  background-color: ${(props) => props.theme.boardColor};
+  min-height: 200px;
+  padding: 20px 10px;
+  padding-top: 30px;
+  border-radius: 4px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
@@ -31,7 +59,7 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1;
     font-family: 'Poppins', sans-serif; 
     background-color: ${(props) => props.theme.bgColor};
-    color: ${(props) => props.theme.textColor}
+    color: white;
   }
   ol, ul {
     list-style: none;
@@ -58,8 +86,33 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  const [toDos, setToDos] = useRecoilState(toDoState);
+  const onDragEnd = ({draggableId, destination, source} : DropResult) => {
+    if (!destination) return;
+    
+    setToDos((prev) => {
+      const oldArray = [...prev];
+      oldArray.splice(source.index, 1);
+      oldArray.splice(destination?.index, 0, draggableId);
+      return oldArray;
+    });
+  };
   return <>
-    <GlobalStyle />
+  <DragDropContext onDragEnd={onDragEnd}>
+    <Wrapper>
+      <Boards>
+        <Droppable droppableId='one'>
+          {(provided) => <Board ref={provided.innerRef} {...provided.droppableProps}>
+            {toDos.map((toDo, idx) => { return (
+              <DraggableCard key={toDo} index={idx} toDo={toDo} />
+            )})}
+            {provided.placeholder}
+            </Board>}
+        </Droppable>
+      </Boards>
+    </Wrapper>
+  </DragDropContext>
+  <GlobalStyle />
   </> ;
 }
 
