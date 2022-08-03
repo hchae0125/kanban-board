@@ -1,0 +1,23 @@
+.main {
+    
+}
+
+.main-header, .main-body {
+    margin: 12px;
+    display: flex;
+}
+
+.main-header {
+    justify-content: space-between;
+}
+
+.main-body {
+    flex-direction: column;
+}
+
+.dropdown-container {
+    display: flex;
+    justify-content: space-between;
+    width: 246px;
+    align-items: center;
+}
