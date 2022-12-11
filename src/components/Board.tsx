@@ -7,18 +7,19 @@ import DraggableCard from "./DraggableCard";
 
 const Wrapper = styled.div`
     overflow: hidden;
-  background-color: ${(props) => props.theme.boardColor};
-  width: 300px;
-  min-height: 300px;
-  padding-top: 10px;
-  border-radius: 4px;
+    //background-color: ${(props) => props.theme.boardColor};
+    width: 300px;
+    min-height: 100vh;
+    padding: 16px 0px;
+    border-radius: 4px;
 `;
 
 const Title = styled.h2`
   text-align: center;
   font-weight: 600;
-  margin-bottom: 10px;
+  //margin-bottom: 10px;
   font-size: 18px;
+  
 `;
 
 interface IAreaProps {
@@ -27,10 +28,11 @@ interface IAreaProps {
 }
 
 const Area = styled.div<IAreaProps>`
-    background-color: ${props => props.isDraggingOver ? '#ffeaa7' : props.draggingFromThisWith ? '#a29bfe' : '#636e72'};
+    background-color: ${props => props.isDraggingOver ? '#ffeaa7' : props.draggingFromThisWith ? '#a29bfe' : props.theme.bgColor};
     flex-grow: 1;
     transition: background-color 300ms ease-in-out;
-    padding: 20px;
+    padding: 8px 0px;
+    border-radius: 0%;
 `;
 
 const Form = styled.form`
@@ -71,7 +73,10 @@ function Board ({toDos, boardId}: IBoard) {
 
     return (
         <Wrapper>
-            <Title>{boardId}</Title>
+            <div style={{backgroundColor: "white", color: boardId === 'To Do' ? '#c23616' : boardId === 'Doing' ? '#00a8ff' : boardId === 'Done' ? '#4cd137' : '#7f8fa6', padding:'4px', marginBottom:'8px', borderRadius:'4px', borderBottom:`solid 4px ${boardId === 'To Do' ? '#c23616' : boardId === 'Doing' ? '#00a8ff' : boardId === 'Done' ? '#4cd137' : '#7f8fa6'}`}}>
+                <Title>{boardId}</Title>
+            </div>
+            
             <Form onSubmit={handleSubmit(onValid)}>
                 <input { ...register("toDo", {required: true})} type="text" placeholder={`Add task on ${boardId} `}/>
             </Form>

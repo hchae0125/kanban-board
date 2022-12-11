@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     line-height: 1;
     font-family: 'Poppins', sans-serif; 
-    //background-color: ${(props) => props.theme.bgColor};
+    background-color: ${(props) => props.theme.bgColor};
     //color: white;
   }
   ol, ul {

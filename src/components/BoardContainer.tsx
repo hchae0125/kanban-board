@@ -11,7 +11,7 @@ interface IBoardContainer {
 
 const Boards = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: flex-start;
   width: 100%;
   gap: 10px;
