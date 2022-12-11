@@ -23,12 +23,12 @@ const MainHeader: React.FC<IMainHeaderProps> = (props) => {
             </Paper>
         </div>
         <div className='dropdown-container'>
-            <div className='dropdown'>
+            {/* <div className='dropdown'>
                 Group By
             </div>
             <div className='dropdown'>
                 dropdown 2
-            </div>
+            </div> */}
         </div>
     </>
 }
