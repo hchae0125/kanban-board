@@ -4,22 +4,46 @@ import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { ITodo, toDoState } from "../atoms";
 import DraggableCard from "./DraggableCard";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const Wrapper = styled.div`
     overflow: hidden;
-    //background-color: ${(props) => props.theme.boardColor};
     width: 300px;
     min-height: 100vh;
     padding: 16px 0px;
     border-radius: 4px;
 `;
 
-const Title = styled.h2`
+const TitleBox = styled.div<{boardId : string}>`
+    background-color: white;
+    color: ${(props) => props.boardId === 'To Do' ? '#c23616' : props.boardId === 'Doing' ? '#00a8ff' : props.boardId === 'Done' ? '#4cd137' : '#7f8fa6'};
+    border-bottom: solid 4px ${(props) => props.boardId === 'To Do' ? '#c23616' : props.boardId === 'Doing' ? '#00a8ff' : props.boardId === 'Done' ? '#4cd137' : '#7f8fa6'};
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+const OptionIcon = styled.button`
+    :hover {
+        color: darkgray;
+    }
+    margin: 4px;
+    color: silver;
+    border: 0;
+    background-color: transparent;
+`;
+
+const Text = styled.h2`
   text-align: center;
   font-weight: 600;
-  //margin-bottom: 10px;
-  font-size: 18px;
-  
+  font-size: 20px;
+`;
+
+const Count = styled.div<{boardId: string}>`
+    color: ${(props) => props.boardId === 'To Do' ? '#c23616' : props.boardId === 'Doing' ? '#00a8ff' : props.boardId === 'Done' ? '#4cd137' : '#7f8fa6'};
+    margin: 4px;
 `;
 
 interface IAreaProps {
@@ -73,9 +97,13 @@ function Board ({toDos, boardId}: IBoard) {
 
     return (
         <Wrapper>
-            <div style={{backgroundColor: "white", color: boardId === 'To Do' ? '#c23616' : boardId === 'Doing' ? '#00a8ff' : boardId === 'Done' ? '#4cd137' : '#7f8fa6', padding:'4px', marginBottom:'8px', borderRadius:'4px', borderBottom:`solid 4px ${boardId === 'To Do' ? '#c23616' : boardId === 'Doing' ? '#00a8ff' : boardId === 'Done' ? '#4cd137' : '#7f8fa6'}`}}>
-                <Title>{boardId}</Title>
-            </div>
+            <TitleBox boardId={boardId}>
+                <div style={{display: 'flex', alignItems: 'center'}}>
+                    <OptionIcon><MoreVertIcon /></OptionIcon>
+                    <Text>{boardId}</Text>
+                </div>
+                <Count boardId={boardId}>{toDos.length}</Count>
+            </TitleBox>
             
             <Form onSubmit={handleSubmit(onValid)}>
                 <input { ...register("toDo", {required: true})} type="text" placeholder={`Add task on ${boardId} `}/>
