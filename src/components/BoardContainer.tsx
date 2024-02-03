@@ -4,28 +4,13 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useRecoilState } from 'recoil';
 import { toDoState } from '../atoms';
+import '../mainBody.css';
 
 interface IBoardContainer {
 
 }
 
-const Boards = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  width: 100%;
-  gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
-`;
 
-const Wrapper = styled.div`
-  display: flex;
-  width: 100vw;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
 const BoardContainer: React.FC<IBoardContainer> = (props) => {
     const [toDos, setToDos] = useRecoilState(toDoState);
     const onDragEnd = ({draggableId, destination, source} : DropResult) => {
@@ -51,13 +36,13 @@ const BoardContainer: React.FC<IBoardContainer> = (props) => {
     };
     return <>
         <DragDropContext onDragEnd={onDragEnd}>
-            <Wrapper>
-                <Boards>
+            <div className='wrapper'>
+                <div className='board-wrapper'>
                     {Object.keys(toDos).map(key => (
                         <Board toDos={toDos[key]} key={key} boardId={key} />
                     ))}
-                </Boards>
-            </Wrapper>
+                </div>
+            </div>
         </DragDropContext>
     </>
 }

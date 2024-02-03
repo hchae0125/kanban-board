@@ -1,0 +1,97 @@
+.wrapper {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.board-wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.board-top-container {
+    background-color: white;
+    /* border-bottom: solid 4px #c23616;
+    border-radius: 4px; */
+    margin-bottom: 8px;
+    padding: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .board-title {
+    color: ${(props) => props.boardId === 'To Do' ? '#c23616' : props.boardId === 'Doing' ? '#00a8ff' : props.boardId === 'Done' ? '#4cd137' : '#7f8fa6'};
+
+} */
+
+/* .board-top-container.Doing {
+    border-bottom: solid 4px #00a8ff;
+}
+
+.board-top-container.Done {
+    border-bottom: solid 4px #4cd137;
+}
+
+.board-top-container.Idea {
+    border-bottom: solid 4px #7f8fa6;
+} */
+
+.board-top-option {
+    margin: 4px;
+    color: silver;
+    border: 0;
+    background-color: transparent;
+}
+
+.board-top-option:hover {
+    color: black;
+}
+
+.board-top-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.board-top-form, input {
+    width: 100%;
+}
+
+.board-top-count {
+    background-color: #F7CEDC;
+    border: solid 2px black;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.draggable-card {
+    background-color: #FAE973;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    padding: 10px ;
+}
+
+.draggable-card.Doing {
+    background-color: aquamarine;
+}
+
+.draggable-card.Done {
+    background-color: #F7CEDC;
+}
+
+.draggable-card.Idea {
+    background-color: #B7B0FF;
+}
+

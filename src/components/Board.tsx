@@ -14,38 +14,6 @@ const Wrapper = styled.div`
     border-radius: 4px;
 `;
 
-const TitleBox = styled.div<{boardId : string}>`
-    background-color: white;
-    color: ${(props) => props.boardId === 'To Do' ? '#c23616' : props.boardId === 'Doing' ? '#00a8ff' : props.boardId === 'Done' ? '#4cd137' : '#7f8fa6'};
-    border-bottom: solid 4px ${(props) => props.boardId === 'To Do' ? '#c23616' : props.boardId === 'Doing' ? '#00a8ff' : props.boardId === 'Done' ? '#4cd137' : '#7f8fa6'};
-    border-radius: 4px;
-    margin-bottom: 8px;
-    padding: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
-const OptionIcon = styled.button`
-    :hover {
-        color: darkgray;
-    }
-    margin: 4px;
-    color: silver;
-    border: 0;
-    background-color: transparent;
-`;
-
-const Text = styled.h2`
-  text-align: center;
-  font-weight: 600;
-  font-size: 20px;
-`;
-
-const Count = styled.div<{boardId: string}>`
-    color: ${(props) => props.boardId === 'To Do' ? '#c23616' : props.boardId === 'Doing' ? '#00a8ff' : props.boardId === 'Done' ? '#4cd137' : '#7f8fa6'};
-    margin: 4px;
-`;
-
 interface IAreaProps {
     isDraggingOver: boolean;
     draggingFromThisWith: boolean;
@@ -58,14 +26,6 @@ const Area = styled.div<IAreaProps>`
     padding: 8px 0px;
     border-radius: 0%;
 `;
-
-const Form = styled.form`
-    width: 100%;
-    input {
-        width: 100%;
-    }
-`;
-
 interface IBoard {
     toDos: ITodo[];
     boardId: string;
@@ -97,22 +57,25 @@ function Board ({toDos, boardId}: IBoard) {
 
     return (
         <Wrapper>
-            <TitleBox boardId={boardId}>
+            <div className={'board-top-container ' + (boardId)}>
                 <div style={{display: 'flex', alignItems: 'center'}}>
-                    <OptionIcon><MoreVertIcon /></OptionIcon>
-                    <Text>{boardId}</Text>
+                    <button className="board-top-option"><MoreVertIcon /></button>
+                    <h2 className="board-top-title">{boardId}</h2>
                 </div>
-                <Count boardId={boardId}>{toDos.length}</Count>
-            </TitleBox>
+                <div className={'board-top-count'}>
+                    {toDos.length}
+                </div>
+            </div>
             
-            <Form onSubmit={handleSubmit(onValid)}>
+            <form className="board-top-form" onSubmit={handleSubmit(onValid)}>
                 <input { ...register("toDo", {required: true})} type="text" placeholder={`Add task on ${boardId} `}/>
-            </Form>
+            </form>
+
             <Droppable droppableId={boardId}>
                 {(provided, snapshot) => (
                 <Area isDraggingOver={snapshot.isDraggingOver} draggingFromThisWith={Boolean(snapshot.draggingFromThisWith)} ref={provided.innerRef} {...provided.droppableProps}>
                     {toDos.map((toDo, index) => (
-                    <DraggableCard key={toDo.id} index={index} toDoId={toDo.id} toDoText={toDo.text} />
+                        <DraggableCard key={toDo.id} index={index} toDoId={provided.droppableProps["data-rbd-droppable-id"]} cardId={toDo.id} toDoText={toDo.text} />
                     ))}
                     {provided.placeholder}
                 </Area>

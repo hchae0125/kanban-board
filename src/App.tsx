@@ -3,8 +3,9 @@ import Main from './components/Main';
 import './main.css';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&display=swap');
-  html, body, div, span, applet, object, iframe,
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&family=Nunito:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  
+html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,
   del, dfn, em, img, ins, kbd, q, s, samp,
@@ -21,7 +22,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
     vertical-align: baseline;
   }
   /* HTML5 display-role reset for older browsers */
@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     line-height: 1;
-    font-family: 'Poppins', sans-serif; 
+    font-family: "Lexend Deca", sans-serif;
     background-color: ${(props) => props.theme.bgColor};
     //color: white;
   }

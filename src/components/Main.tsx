@@ -1,6 +1,7 @@
 import * as React from 'react';
 import MainBody from './MainBody';
 import MainHeader from './MainHeader';
+import '../main.css';
 
 interface IMainProps {
 
@@ -8,12 +9,12 @@ interface IMainProps {
 
 const Main : React.FC<IMainProps> = (props) => {
     return <div className='main'>
-        <div className='main-header'>
+        <section id='main-header'>
             <MainHeader />
-        </div>
-        <div className='main-body'>
+        </section>
+        <section id='main-body'>
             <MainBody />
-        </div>
+        </section>
     </div>
 }
 

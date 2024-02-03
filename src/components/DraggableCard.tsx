@@ -1,29 +1,29 @@
 import { Draggable } from "react-beautiful-dnd";
-import styled from "styled-components";
 import * as React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-const Card = styled.div`
-  background-color: ${(props) => props.theme.cardColor};
-  margin-bottom: 4px;
-  border-radius: 4px;
-  padding: 10px ;
-`;
+import { log } from "console";
 
 interface IDraggasbleCard {
     toDoText: string;
-    toDoId: number;
+    toDoId: string;
     index: number;
+    cardId: number;
 }
 
 function DraggableCard ({toDoText, toDoId, index}: IDraggasbleCard) {
+    console.log(toDoText);
+    console.log(toDoId);
+    console.log(index);
     return (
         <Draggable draggableId={toDoId+''} index={index} key={toDoId}>
-            {(provided) => <Card ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}> 
-                <div className="icon-container"><EditIcon /><DeleteIcon /></div>
+            {(provided) => <div className={'draggable-card ' + toDoId} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}> 
+                <div className="icon-container">
+                    <EditIcon />
+                    <DeleteIcon />
+                </div>
                 {toDoText} 
-            </Card>}
+            </div>}
         </Draggable>
     )
 }
