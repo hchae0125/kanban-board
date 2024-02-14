@@ -1,10 +1,10 @@
 import { Droppable } from "react-beautiful-dnd"
 import { useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ITodo, toDoState } from "../atoms";
 import DraggableCard from "./DraggableCard";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { connect } from "react-redux";
+import { addToDo, ITodo } from "../store";
 
 const Wrapper = styled.div`
     overflow: hidden;
@@ -20,7 +20,7 @@ interface IAreaProps {
 }
 
 const Area = styled.div<IAreaProps>`
-    background-color: ${props => props.isDraggingOver ? '#ffeaa7' : props.draggingFromThisWith ? '#a29bfe' : props.theme.bgColor};
+    background-color: ${props => props.isDraggingOver ? 'silver' : props.draggingFromThisWith ? 'silver' : props.theme.bgColor};
     flex-grow: 1;
     transition: background-color 300ms ease-in-out;
     padding: 8px 0px;
@@ -29,29 +29,19 @@ const Area = styled.div<IAreaProps>`
 interface IBoard {
     toDos: ITodo[];
     boardId: string;
+    dispatch: any;
 }
 
 interface IForm {
     toDo: string;
 }
 
-function Board ({toDos, boardId}: IBoard) {
+const Board: React.FC<IBoard> = (props) => {
+    const { toDos, boardId, dispatch } = props;
     const { register, setValue, handleSubmit } = useForm<IForm>();
-    const setToDos = useSetRecoilState(toDoState);
+    
     const onValid = ({ toDo }: IForm) => {
-        const newToDo = {
-            id: Date.now(),
-            text: toDo,
-        };
-        setToDos((allBoards) => {
-            return {
-                ...allBoards,
-                [boardId]: [
-                    ...allBoards[boardId],
-                    newToDo
-                ]
-            }
-        })
+        dispatch(addToDo(toDo, boardId));
         setValue("toDo", '');
     }
 
@@ -85,4 +75,8 @@ function Board ({toDos, boardId}: IBoard) {
     )
 }
 
-export default Board;
+function mapDispatchToProps(dispatch: any) {
+    return { dispatch }
+}
+
+export default connect(null,mapDispatchToProps) (Board);

@@ -17,31 +17,12 @@
 
 .board-top-container {
     background-color: white;
-    /* border-bottom: solid 4px #c23616;
-    border-radius: 4px; */
     margin-bottom: 8px;
     padding: 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-/* .board-title {
-    color: ${(props) => props.boardId === 'To Do' ? '#c23616' : props.boardId === 'Doing' ? '#00a8ff' : props.boardId === 'Done' ? '#4cd137' : '#7f8fa6'};
-
-} */
-
-/* .board-top-container.Doing {
-    border-bottom: solid 4px #00a8ff;
-}
-
-.board-top-container.Done {
-    border-bottom: solid 4px #4cd137;
-}
-
-.board-top-container.Idea {
-    border-bottom: solid 4px #7f8fa6;
-} */
 
 .board-top-option {
     margin: 4px;
@@ -78,9 +59,10 @@
 
 .draggable-card {
     background-color: #FAE973;
-    margin-bottom: 4px;
-    border-radius: 4px;
-    padding: 10px ;
+    border: solid 1px #000000;
+    padding: 1rem;
+    width: calc(100% - 4px);
+    box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
 }
 
 .draggable-card.Doing {
@@ -95,3 +77,35 @@
     background-color: #B7B0FF;
 }
 
+.draggable-card-icon-container {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+    margin-bottom: 1rem;
+}
+
+.draggable-card-icon {
+
+}
+
+.draggable-card-input {
+    display: none;
+}
+
+.draggable-card-input.active {
+    display: inline;
+}
+
+.draggable-card-button {
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.draggable-card-button:hover {
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: silver;
+}

@@ -1,39 +1,23 @@
 import * as React from 'react';
 import Board from './Board';
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
-import { useRecoilState } from 'recoil';
-import { toDoState } from '../atoms';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import '../mainBody.css';
+import { connect } from 'react-redux';
+import { dragTodo, IToDoState } from '../store';
 
 interface IBoardContainer {
-
+  toDoState: IToDoState;
+  dispatch: any;
 }
 
 
 const BoardContainer: React.FC<IBoardContainer> = (props) => {
-    const [toDos, setToDos] = useRecoilState(toDoState);
+    const toDos = props.toDoState;
     const onDragEnd = ({draggableId, destination, source} : DropResult) => {
       if (!destination) return;
-      if (destination?.droppableId === source.droppableId) {
-        setToDos((prev) => {
-          const array = [...prev[source.droppableId]];
-          const target = array[source.index];
-          array.splice(source.index, 1);
-          array.splice(destination.index, 0, target);
-          return { ...prev, [source.droppableId]: array }
-        });
-      } else {
-        setToDos((prev) => {
-          const sourceBoard = [...prev[source.droppableId]];
-          const target = sourceBoard[source.index];
-          const destinationBoard = [...prev[destination.droppableId]];
-          sourceBoard.splice(source.index, 1);
-          destinationBoard.splice(destination.index, 0, target);
-          return { ...prev, [source.droppableId]: sourceBoard, [destination.droppableId]: destinationBoard };
-        });
-      }
+      props.dispatch(dragTodo({draggableId, destination, source} as DropResult));
     };
+
     return <>
         <DragDropContext onDragEnd={onDragEnd}>
             <div className='wrapper'>
@@ -47,4 +31,12 @@ const BoardContainer: React.FC<IBoardContainer> = (props) => {
     </>
 }
 
-export default BoardContainer;
+function mapStateToProps(state: any) {
+  return { toDoState: state, filteredToDoState: state }
+}
+
+function mapDispatchToProps(dispatch: any) {
+  return { dispatch }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (BoardContainer);
