@@ -7,8 +7,6 @@ interface IMainBodyProps {
 
 const MainBody: React.FC<IMainBodyProps> = (props) => {
     return <>
-        <div className='title-container'>
-        </div>
         <div className='board-container'>
             <BoardContainer />
         </div>

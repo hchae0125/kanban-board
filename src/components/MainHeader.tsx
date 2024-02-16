@@ -1,16 +1,14 @@
 import { OutlinedInput } from '@mui/material';
 import * as React from 'react';
 import '../mainHeader.css';
+import { connect } from 'react-redux';
+import { filterTodo } from '../store';
 
 interface IMainHeaderProps {
-
+    dispatch: any;
 }
 
 const MainHeader: React.FC<IMainHeaderProps> = (props) => {
-
-    const handleOnChange = (e:React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-  
-    }
 
     return <>
     <div className='max-container'>
@@ -21,7 +19,7 @@ const MainHeader: React.FC<IMainHeaderProps> = (props) => {
             <OutlinedInput color="primary" placeholder='Go to any project or task'
                 sx={{width: 400, height: '4vh'}}
                 onChange={(e) => {
-                    handleOnChange(e);
+                    props.dispatch(filterTodo(e.target.value));
                 }}
             />
         </div>
@@ -29,4 +27,8 @@ const MainHeader: React.FC<IMainHeaderProps> = (props) => {
     </>
 }
 
-export default MainHeader;
+function mapDispatchToProps(dispatch: any) {
+    return { dispatch }
+  }
+
+export default connect(null, mapDispatchToProps)(MainHeader);

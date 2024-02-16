@@ -6,13 +6,14 @@ import { connect } from 'react-redux';
 import { dragTodo, IToDoState } from '../store';
 
 interface IBoardContainer {
+  filteredToDoState: IToDoState;
   toDoState: IToDoState;
   dispatch: any;
 }
 
 
 const BoardContainer: React.FC<IBoardContainer> = (props) => {
-    const toDos = props.toDoState;
+    const toDos = props.filteredToDoState ? props.filteredToDoState : props.toDoState;
     const onDragEnd = ({draggableId, destination, source} : DropResult) => {
       if (!destination) return;
       props.dispatch(dragTodo({draggableId, destination, source} as DropResult));
@@ -32,7 +33,7 @@ const BoardContainer: React.FC<IBoardContainer> = (props) => {
 }
 
 function mapStateToProps(state: any) {
-  return { toDoState: state, filteredToDoState: state }
+  return { toDoState: state['Original'], filteredToDoState: state['Filtered'] }
 }
 
 function mapDispatchToProps(dispatch: any) {

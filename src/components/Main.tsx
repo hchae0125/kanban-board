@@ -15,6 +15,9 @@ const Main : React.FC<IMainProps> = (props) => {
         <section id='main-body'>
             <MainBody />
         </section>
+        <section id='main-footer'>
+            <div>Source</div>
+        </section>
     </div>
 }
 
